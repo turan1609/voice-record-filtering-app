@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'voiceCommandDatabase.ui'
+# Form implementation generated from reading ui file 'voiceRecorderDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -9,19 +9,13 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from voiceRecorderDialog import Ui_voiceRecorderDialog
 
 
-class Ui_MainWindow(object):
-    def open_record_page(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_voiceRecorderDialog()
-        self.ui.setupUi(self.window)
-        self.window.show()
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1096, 480)
-        MainWindow.setStyleSheet("QToolTip\n"
+class Ui_voiceRecorderDialog(object):
+    def setupUi(self, voiceRecorderDialog):
+        voiceRecorderDialog.setObjectName("voiceRecorderDialog")
+        voiceRecorderDialog.resize(847, 431)
+        voiceRecorderDialog.setStyleSheet("QToolTip\n"
 "{\n"
 "     border: 1px solid black;\n"
 "     background-color: #ffa02f;\n"
@@ -539,10 +533,8 @@ class Ui_MainWindow(object):
 "    border-radius: 2px;\n"
 "    min-width: 50px;\n"
 "}")
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.frameFilter = QtWidgets.QFrame(self.centralwidget)
-        self.frameFilter.setGeometry(QtCore.QRect(30, 20, 432, 311))
+        self.frameFilter = QtWidgets.QFrame(voiceRecorderDialog)
+        self.frameFilter.setGeometry(QtCore.QRect(40, 20, 432, 311))
         self.frameFilter.setStyleSheet("background-color:#ffa850;\n"
 "border-style: solid;\n"
 "border-width: 5px;\n"
@@ -562,17 +554,17 @@ class Ui_MainWindow(object):
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.horizontalLayout_22 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_22.setObjectName("horizontalLayout_22")
-        self.labelFilterLanguage = QtWidgets.QLabel(self.widgetFilterLanguage)
-        self.labelFilterLanguage.setStyleSheet("background-color: #ff9b0f;\n"
+        self.labelDialogFilterLanguage = QtWidgets.QLabel(self.widgetFilterLanguage)
+        self.labelDialogFilterLanguage.setStyleSheet("background-color: #ff9b0f;\n"
 "color: black;\n"
 "border-color: #4d4018;")
-        self.labelFilterLanguage.setObjectName("labelFilterLanguage")
-        self.horizontalLayout_22.addWidget(self.labelFilterLanguage)
+        self.labelDialogFilterLanguage.setObjectName("labelDialogFilterLanguage")
+        self.horizontalLayout_22.addWidget(self.labelDialogFilterLanguage)
         spacerItem = QtWidgets.QSpacerItem(13, 17, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_22.addItem(spacerItem)
-        self.radioButtonFilterLanguageTurkish = QtWidgets.QRadioButton(self.widgetFilterLanguage)
-        self.radioButtonFilterLanguageTurkish.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.radioButtonFilterLanguageTurkish.setStyleSheet("QRadioButton{\n"
+        self.radioButtonDialogLanguageTurkish = QtWidgets.QRadioButton(self.widgetFilterLanguage)
+        self.radioButtonDialogLanguageTurkish.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.radioButtonDialogLanguageTurkish.setStyleSheet("QRadioButton{\n"
 "    background-color: #ff6d49;\n"
 "    color: black;;\n"
 "    border-color: #4d4018;\n"
@@ -582,15 +574,15 @@ class Ui_MainWindow(object):
 "    background-color: red;\n"
 "}\n"
 "")
-        self.radioButtonFilterLanguageTurkish.setChecked(True)
-        self.radioButtonFilterLanguageTurkish.setAutoExclusive(False)
-        self.radioButtonFilterLanguageTurkish.setObjectName("radioButtonFilterLanguageTurkish")
-        self.horizontalLayout_22.addWidget(self.radioButtonFilterLanguageTurkish)
+        self.radioButtonDialogLanguageTurkish.setChecked(True)
+        self.radioButtonDialogLanguageTurkish.setAutoExclusive(False)
+        self.radioButtonDialogLanguageTurkish.setObjectName("radioButtonDialogLanguageTurkish")
+        self.horizontalLayout_22.addWidget(self.radioButtonDialogLanguageTurkish)
         spacerItem1 = QtWidgets.QSpacerItem(88, 77, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_22.addItem(spacerItem1)
-        self.radioButtonFilterLanguageEnglish = QtWidgets.QRadioButton(self.widgetFilterLanguage)
-        self.radioButtonFilterLanguageEnglish.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.radioButtonFilterLanguageEnglish.setStyleSheet("QRadioButton{\n"
+        self.radioButtonDialogLanguageEnglish = QtWidgets.QRadioButton(self.widgetFilterLanguage)
+        self.radioButtonDialogLanguageEnglish.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.radioButtonDialogLanguageEnglish.setStyleSheet("QRadioButton{\n"
 "    background-color: #ff6d49;\n"
 "    color: black;;\n"
 "    border-color: #4d4018;\n"
@@ -600,10 +592,10 @@ class Ui_MainWindow(object):
 "    background-color: red;\n"
 "}\n"
 "")
-        self.radioButtonFilterLanguageEnglish.setChecked(True)
-        self.radioButtonFilterLanguageEnglish.setAutoExclusive(False)
-        self.radioButtonFilterLanguageEnglish.setObjectName("radioButtonFilterLanguageEnglish")
-        self.horizontalLayout_22.addWidget(self.radioButtonFilterLanguageEnglish)
+        self.radioButtonDialogLanguageEnglish.setChecked(True)
+        self.radioButtonDialogLanguageEnglish.setAutoExclusive(False)
+        self.radioButtonDialogLanguageEnglish.setObjectName("radioButtonDialogLanguageEnglish")
+        self.horizontalLayout_22.addWidget(self.radioButtonDialogLanguageEnglish)
         self.gridLayout_5.addLayout(self.horizontalLayout_22, 0, 0, 1, 1)
         self.verticalLayout_3.addWidget(self.widgetFilterLanguage)
         self.widgetFilterGender = QtWidgets.QWidget(self.frameFilter)
@@ -613,17 +605,17 @@ class Ui_MainWindow(object):
         self.widgetFilterGender.setObjectName("widgetFilterGender")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.widgetFilterGender)
         self.gridLayout_4.setObjectName("gridLayout_4")
-        self.labelFilterGender = QtWidgets.QLabel(self.widgetFilterGender)
-        self.labelFilterGender.setStyleSheet("background-color: #ff9b0f;\n"
+        self.labelDialogGender = QtWidgets.QLabel(self.widgetFilterGender)
+        self.labelDialogGender.setStyleSheet("background-color: #ff9b0f;\n"
 "color: black;\n"
 "border-color: #4d4018;")
-        self.labelFilterGender.setObjectName("labelFilterGender")
-        self.gridLayout_4.addWidget(self.labelFilterGender, 0, 0, 1, 1)
+        self.labelDialogGender.setObjectName("labelDialogGender")
+        self.gridLayout_4.addWidget(self.labelDialogGender, 0, 0, 1, 1)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_4.addItem(spacerItem2, 0, 1, 1, 1)
-        self.radioButtonFilterGenderMale = QtWidgets.QRadioButton(self.widgetFilterGender)
-        self.radioButtonFilterGenderMale.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.radioButtonFilterGenderMale.setStyleSheet("QRadioButton{\n"
+        self.radioButtonDialogGenderMale = QtWidgets.QRadioButton(self.widgetFilterGender)
+        self.radioButtonDialogGenderMale.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.radioButtonDialogGenderMale.setStyleSheet("QRadioButton{\n"
 "    background-color: #ff6d49;\n"
 "    color: black;;\n"
 "    border-color: #4d4018;\n"
@@ -633,15 +625,15 @@ class Ui_MainWindow(object):
 "    background-color: red;\n"
 "}\n"
 "")
-        self.radioButtonFilterGenderMale.setChecked(True)
-        self.radioButtonFilterGenderMale.setAutoExclusive(False)
-        self.radioButtonFilterGenderMale.setObjectName("radioButtonFilterGenderMale")
-        self.gridLayout_4.addWidget(self.radioButtonFilterGenderMale, 0, 2, 1, 1)
+        self.radioButtonDialogGenderMale.setChecked(True)
+        self.radioButtonDialogGenderMale.setAutoExclusive(False)
+        self.radioButtonDialogGenderMale.setObjectName("radioButtonDialogGenderMale")
+        self.gridLayout_4.addWidget(self.radioButtonDialogGenderMale, 0, 2, 1, 1)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_4.addItem(spacerItem3, 0, 3, 1, 1)
-        self.radioButtonFilterGenderFemale = QtWidgets.QRadioButton(self.widgetFilterGender)
-        self.radioButtonFilterGenderFemale.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.radioButtonFilterGenderFemale.setStyleSheet("QRadioButton{\n"
+        self.radioButtonDialogGenderFemale = QtWidgets.QRadioButton(self.widgetFilterGender)
+        self.radioButtonDialogGenderFemale.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.radioButtonDialogGenderFemale.setStyleSheet("QRadioButton{\n"
 "    background-color: #ff6d49;\n"
 "    color: black;;\n"
 "    border-color: #4d4018;\n"
@@ -651,10 +643,10 @@ class Ui_MainWindow(object):
 "    background-color: red;\n"
 "}\n"
 "")
-        self.radioButtonFilterGenderFemale.setChecked(True)
-        self.radioButtonFilterGenderFemale.setAutoExclusive(False)
-        self.radioButtonFilterGenderFemale.setObjectName("radioButtonFilterGenderFemale")
-        self.gridLayout_4.addWidget(self.radioButtonFilterGenderFemale, 0, 4, 1, 1)
+        self.radioButtonDialogGenderFemale.setChecked(True)
+        self.radioButtonDialogGenderFemale.setAutoExclusive(False)
+        self.radioButtonDialogGenderFemale.setObjectName("radioButtonDialogGenderFemale")
+        self.gridLayout_4.addWidget(self.radioButtonDialogGenderFemale, 0, 4, 1, 1)
         self.verticalLayout_3.addWidget(self.widgetFilterGender)
         self.widgetFilterName = QtWidgets.QWidget(self.frameFilter)
         self.widgetFilterName.setStyleSheet("border-style: solid;\n"
@@ -671,32 +663,20 @@ class Ui_MainWindow(object):
 "border-color: #4d4018;")
         self.labelFilterName.setObjectName("labelFilterName")
         self.horizontalLayout_21.addWidget(self.labelFilterName)
-        self.gridLayout_3.addLayout(self.horizontalLayout_21, 0, 0, 1, 1)
-        self.comboBoxFilterName = QtWidgets.QComboBox(self.widgetFilterName)
-        self.comboBoxFilterName.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.comboBoxFilterName.setStyleSheet("QComboBox{\n"
+        self.lineEditDialog = QtWidgets.QLineEdit(self.widgetFilterName)
+        self.lineEditDialog.setStyleSheet("QLineEdit{\n"
 "    background-color: #ff6d49;\n"
 "    color: black;;\n"
 "    border-color: #4d4018;\n"
 "}\n"
 "\n"
-"QComboBox:hover{\n"
+"QLineEdit:hover{\n"
 "    background-color: red;\n"
 "}\n"
 "")
-        self.comboBoxFilterName.setObjectName("comboBoxFilterName")
-        self.comboBoxFilterName.addItem("")
-        self.comboBoxFilterName.addItem("")
-        self.comboBoxFilterName.addItem("")
-        self.comboBoxFilterName.addItem("")
-        self.comboBoxFilterName.addItem("")
-        self.comboBoxFilterName.addItem("")
-        self.comboBoxFilterName.addItem("")
-        self.comboBoxFilterName.addItem("")
-        self.comboBoxFilterName.addItem("")
-        self.comboBoxFilterName.addItem("")
-        self.comboBoxFilterName.addItem("")
-        self.gridLayout_3.addWidget(self.comboBoxFilterName, 0, 1, 1, 1)
+        self.lineEditDialog.setObjectName("lineEditDialog")
+        self.horizontalLayout_21.addWidget(self.lineEditDialog)
+        self.gridLayout_3.addLayout(self.horizontalLayout_21, 0, 0, 1, 1)
         self.verticalLayout_3.addWidget(self.widgetFilterName)
         self.widgetFilterCommend = QtWidgets.QWidget(self.frameFilter)
         self.widgetFilterCommend.setStyleSheet("border-style: solid;\n"
@@ -713,177 +693,28 @@ class Ui_MainWindow(object):
 "border-color: #4d4018;")
         self.labelFilterCommend.setObjectName("labelFilterCommend")
         self.horizontalLayout_27.addWidget(self.labelFilterCommend)
-        self.gridLayout_10.addLayout(self.horizontalLayout_27, 0, 0, 1, 1)
-        self.comboBoxFilterCommend = QtWidgets.QComboBox(self.widgetFilterCommend)
-        self.comboBoxFilterCommend.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.comboBoxFilterCommend.setStyleSheet("QComboBox{\n"
+        self.lineEditDialog_2 = QtWidgets.QLineEdit(self.widgetFilterCommend)
+        self.lineEditDialog_2.setStyleSheet("QLineEdit{\n"
 "    background-color: #ff6d49;\n"
 "    color: black;;\n"
 "    border-color: #4d4018;\n"
 "}\n"
 "\n"
-"QComboBox:hover{\n"
+"QLineEdit:hover{\n"
 "    background-color: red;\n"
 "}\n"
 "")
-        self.comboBoxFilterCommend.setObjectName("comboBoxFilterCommend")
-        self.comboBoxFilterCommend.addItem("")
-        self.comboBoxFilterCommend.addItem("")
-        self.comboBoxFilterCommend.addItem("")
-        self.gridLayout_10.addWidget(self.comboBoxFilterCommend, 0, 1, 1, 1)
+        self.lineEditDialog_2.setObjectName("lineEditDialog_2")
+        self.horizontalLayout_27.addWidget(self.lineEditDialog_2)
+        self.gridLayout_10.addLayout(self.horizontalLayout_27, 0, 0, 1, 1)
         self.verticalLayout_3.addWidget(self.widgetFilterCommend)
-        self.frameList = QtWidgets.QFrame(self.centralwidget)
-        self.frameList.setGeometry(QtCore.QRect(500, 20, 521, 311))
-        self.frameList.setStyleSheet("background-color:#ffa850;\n"
-"border-style: solid;\n"
-"border-width: 5px;\n"
-"border-color: #556B2F;\n"
-"border-radius: 5px;")
-        self.frameList.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frameList.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frameList.setObjectName("frameList")
-        self.gridLayout_7 = QtWidgets.QGridLayout(self.frameList)
-        self.gridLayout_7.setObjectName("gridLayout_7")
-        self.scrollAreaList = QtWidgets.QScrollArea(self.frameList)
-        self.scrollAreaList.setStyleSheet("border-style: solid;\n"
-"border-width: 2px;\n"
-"background-color: #ffe5d8;")
-        self.scrollAreaList.setWidgetResizable(True)
-        self.scrollAreaList.setObjectName("scrollAreaList")
-        self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 485, 275))
-        self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.scrollAreaList.setWidget(self.scrollAreaWidgetContents_2)
-        self.gridLayout_7.addWidget(self.scrollAreaList, 1, 0, 1, 1)
-        self.frameButtons = QtWidgets.QFrame(self.centralwidget)
-        self.frameButtons.setGeometry(QtCore.QRect(30, 360, 521, 61))
-        self.frameButtons.setStyleSheet("background-color:#ffa850;\n"
-"border-style: solid;\n"
-"border-width: 5px;\n"
-"border-color: #556B2F;\n"
-"border-radius: 5px;")
-        self.frameButtons.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frameButtons.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frameButtons.setObjectName("frameButtons")
-        self.gridLayout_8 = QtWidgets.QGridLayout(self.frameButtons)
-        self.gridLayout_8.setObjectName("gridLayout_8")
-        self.pushButtonButtonsFilterData = QtWidgets.QPushButton(self.frameButtons)
-        self.pushButtonButtonsFilterData.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButtonButtonsFilterData.setStyleSheet("QPushButton {\n"
-"border-style: solid;\n"
-"border-width: 3px;\n"
-"background-color: #ff6d49;\n"
-"border-color: #4d4018;\n"
-"color: black;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: red;\n"
-"    \n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: orange;\n"
-"    \n"
-"}")
-        self.pushButtonButtonsFilterData.setObjectName("pushButtonButtonsFilterData")
-        self.gridLayout_8.addWidget(self.pushButtonButtonsFilterData, 0, 0, 1, 1)
-        self.pushButtonButtonsShowAllData = QtWidgets.QPushButton(self.frameButtons)
-        self.pushButtonButtonsShowAllData.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButtonButtonsShowAllData.setStyleSheet("QPushButton {\n"
-"border-style: solid;\n"
-"border-width: 3px;\n"
-"background-color: #ff6d49;\n"
-"border-color: #4d4018;\n"
-"color: black;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: red;\n"
-"    \n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: orange;\n"
-"    \n"
-"}")
-        self.pushButtonButtonsShowAllData.setObjectName("pushButtonButtonsShowAllData")
-        self.gridLayout_8.addWidget(self.pushButtonButtonsShowAllData, 0, 1, 1, 1)
-        self.pushButtonButtonsDownloadData = QtWidgets.QPushButton(self.frameButtons)
-        self.pushButtonButtonsDownloadData.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButtonButtonsDownloadData.setStyleSheet("QPushButton {\n"
-"border-style: solid;\n"
-"border-width: 3px;\n"
-"background-color: #ff6d49;\n"
-"border-color: #4d4018;\n"
-"color: black;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: red;\n"
-"    \n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: orange;\n"
-"    \n"
-"}")
-        self.pushButtonButtonsDownloadData.setObjectName("pushButtonButtonsDownloadData")
-        self.gridLayout_8.addWidget(self.pushButtonButtonsDownloadData, 0, 2, 1, 1)
-        self.pushButtonButtonsClearData = QtWidgets.QPushButton(self.frameButtons)
-        self.pushButtonButtonsClearData.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButtonButtonsClearData.setStyleSheet("QPushButton {\n"
-"border-style: solid;\n"
-"border-width: 3px;\n"
-"background-color: #ff6d49;\n"
-"border-color: #4d4018;\n"
-"color: black;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: red;\n"
-"    \n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: orange;\n"
-"    \n"
-"}")
-        self.pushButtonButtonsClearData.setObjectName("pushButtonButtonsClearData")
-        self.gridLayout_8.addWidget(self.pushButtonButtonsClearData, 0, 3, 1, 1)
-        self.widgetShowedData = QtWidgets.QWidget(self.centralwidget)
-        self.widgetShowedData.setGeometry(QtCore.QRect(600, 360, 171, 61))
-        self.widgetShowedData.setStyleSheet("border-style: solid;\n"
-"border-width: 3px;\n"
-"background-color: #ffe5d8;\n"
-"border-color: #556B2F;")
-        self.widgetShowedData.setObjectName("widgetShowedData")
-        self.gridLayout_6 = QtWidgets.QGridLayout(self.widgetShowedData)
-        self.gridLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout_6.setObjectName("gridLayout_6")
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_6.addItem(spacerItem4, 0, 1, 1, 1)
-        self.labelShowedDataNumber = QtWidgets.QLabel(self.widgetShowedData)
-        self.labelShowedDataNumber.setStyleSheet("background-color: #ff9b0f;\n"
-"color: black;\n"
-"border-color: #4d4018;\n"
-"border-style: solid;\n"
-"border-width: 3px;")
-        self.labelShowedDataNumber.setObjectName("labelShowedDataNumber")
-        self.gridLayout_6.addWidget(self.labelShowedDataNumber, 0, 3, 1, 1)
-        self.labelShowedData = QtWidgets.QLabel(self.widgetShowedData)
-        self.labelShowedData.setStyleSheet("background-color: #ff9b0f;\n"
-"color: black;\n"
-"border-color: #4d4018;")
-        self.labelShowedData.setObjectName("labelShowedData")
-        self.gridLayout_6.addWidget(self.labelShowedData, 0, 0, 1, 1)
-        self.pushButtonRecordVoice = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButtonRecordVoice.setGeometry(QtCore.QRect(810, 360, 201, 61))
+        self.pushButtonDialogRecordVoice = QtWidgets.QPushButton(voiceRecorderDialog)
+        self.pushButtonDialogRecordVoice.setGeometry(QtCore.QRect(500, 40, 201, 61))
         font = QtGui.QFont()
         font.setPointSize(-1)
-        font.setBold(True)
-        font.setWeight(75)
-        self.pushButtonRecordVoice.setFont(font)
-
-
-        self.pushButtonRecordVoice.clicked.connect(self.open_record_page)
-
-        self.pushButtonRecordVoice.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButtonRecordVoice.setStyleSheet("QPushButton {\n"
+        self.pushButtonDialogRecordVoice.setFont(font)
+        self.pushButtonDialogRecordVoice.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButtonDialogRecordVoice.setStyleSheet("QPushButton {\n"
 "border-style: solid;\n"
 "border-width: 3px;\n"
 "background-color: #ff6d49;\n"
@@ -898,57 +729,20 @@ class Ui_MainWindow(object):
 "    background-color: orange;\n"
 "    \n"
 "}")
-        self.pushButtonRecordVoice.setObjectName("pushButtonRecordVoice")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1096, 26))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.pushButtonDialogRecordVoice.setObjectName("pushButtonDialogRecordVoice")
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(voiceRecorderDialog)
+        QtCore.QMetaObject.connectSlotsByName(voiceRecorderDialog)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, voiceRecorderDialog):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.labelFilterLanguage.setText(_translate("MainWindow", "Voice Language:"))
-        self.radioButtonFilterLanguageTurkish.setText(_translate("MainWindow", "Turkish"))
-        self.radioButtonFilterLanguageEnglish.setText(_translate("MainWindow", "English"))
-        self.labelFilterGender.setText(_translate("MainWindow", "Voice Gender"))
-        self.radioButtonFilterGenderMale.setText(_translate("MainWindow", "Male"))
-        self.radioButtonFilterGenderFemale.setText(_translate("MainWindow", "Female"))
-        self.labelFilterName.setText(_translate("MainWindow", "Name:"))
-        self.comboBoxFilterName.setItemText(0, _translate("MainWindow", "All"))
-        self.comboBoxFilterName.setItemText(1, _translate("MainWindow", "Yusuf"))
-        self.comboBoxFilterName.setItemText(2, _translate("MainWindow", "Kaan"))
-        self.comboBoxFilterName.setItemText(3, _translate("MainWindow", "Mehmet"))
-        self.comboBoxFilterName.setItemText(4, _translate("MainWindow", "Dila"))
-        self.comboBoxFilterName.setItemText(5, _translate("MainWindow", "Eylül"))
-        self.comboBoxFilterName.setItemText(6, _translate("MainWindow", "Nursena"))
-        self.comboBoxFilterName.setItemText(7, _translate("MainWindow", "Eren"))
-        self.comboBoxFilterName.setItemText(8, _translate("MainWindow", "Barış"))
-        self.comboBoxFilterName.setItemText(9, _translate("MainWindow", "Emre"))
-        self.comboBoxFilterName.setItemText(10, _translate("MainWindow", "Emin"))
-        self.labelFilterCommend.setText(_translate("MainWindow", "Commend:"))
-        self.comboBoxFilterCommend.setItemText(0, _translate("MainWindow", "All"))
-        self.comboBoxFilterCommend.setItemText(1, _translate("MainWindow", "test"))
-        self.comboBoxFilterCommend.setItemText(2, _translate("MainWindow", "deneme"))
-        self.pushButtonButtonsFilterData.setText(_translate("MainWindow", "Filter Data"))
-        self.pushButtonButtonsShowAllData.setText(_translate("MainWindow", "Show All Data"))
-        self.pushButtonButtonsDownloadData.setText(_translate("MainWindow", "Download Data"))
-        self.pushButtonButtonsClearData.setText(_translate("MainWindow", "Clear Data"))
-        self.labelShowedDataNumber.setText(_translate("MainWindow", "22"))
-        self.labelShowedData.setText(_translate("MainWindow", "Showed Data:"))
-        self.pushButtonRecordVoice.setText(_translate("MainWindow", "Record Voice"))
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+        voiceRecorderDialog.setWindowTitle(_translate("voiceRecorderDialog", "Dialog"))
+        self.labelDialogFilterLanguage.setText(_translate("voiceRecorderDialog", "Voice Language:"))
+        self.radioButtonDialogLanguageTurkish.setText(_translate("voiceRecorderDialog", "Turkish"))
+        self.radioButtonDialogLanguageEnglish.setText(_translate("voiceRecorderDialog", "English"))
+        self.labelDialogGender.setText(_translate("voiceRecorderDialog", "Voice Gender"))
+        self.radioButtonDialogGenderMale.setText(_translate("voiceRecorderDialog", "Male"))
+        self.radioButtonDialogGenderFemale.setText(_translate("voiceRecorderDialog", "Female"))
+        self.labelFilterName.setText(_translate("voiceRecorderDialog", "Name:"))
+        self.labelFilterCommend.setText(_translate("voiceRecorderDialog", "Commend:"))
+        self.pushButtonDialogRecordVoice.setText(_translate("voiceRecorderDialog", "Başla/Bitir"))

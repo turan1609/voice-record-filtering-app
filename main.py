@@ -1,3 +1,4 @@
+#-------------------- KÜTÜPHANE --------------------
 import sys
 import os
 import pandas as pd
@@ -8,6 +9,10 @@ from PyQt5 import uic
 import sqlite3
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
+
+
+
+
 
 #---------------- ÖZEL WIDGET TANIMI ---------------
 class CustomWidget(QtWidgets.QWidget):
@@ -121,6 +126,7 @@ class CustomWidget(QtWidgets.QWidget):
         if state == QMediaPlayer.StoppedState:
             self.progressBarCardExample.setValue(0)
 
+
 #---------------- UYGULAMA OLUŞTURMA ---------------
 
 global last_query
@@ -148,6 +154,7 @@ queryCreTblVoice = (
 )
 curs.execute(queryCreTblVoice)
 conn.commit()
+
 
 #--------------- VERİTABANINDAN VERİ ÇEKME --------------
 def LISTALLDATA():
@@ -188,6 +195,7 @@ def LISTALLDATA():
     curs.execute("SELECT COUNT(*) FROM voice")
     numberVoice = curs.fetchone()
     ui.labelShowedDataNumber.setText(str(numberVoice[0]))
+
 
 def FILTERDATA():
 
@@ -329,11 +337,23 @@ def download_data():
     else:
         QMessageBox.warning(None, "Error", "No data to download.")
 
+
+
+
+
+
+
+
+
+#-------------- UYGULAMA OLAYLARI -------------------
 #-------------- UYGULAMA OLAYLARI -------------------
 ui.pushButtonButtonsShowAllData.clicked.connect(LISTALLDATA)
 ui.pushButtonButtonsFilterData.clicked.connect(FILTERDATA)
 ui.pushButtonButtonsClearData.clicked.connect(clear_widgets)
 ui.pushButtonButtonsDownloadData.clicked.connect(download_data)
+
+
+
 
 
 #--------------- UYGULAMAYI ÇALIŞTIRMA --------------
