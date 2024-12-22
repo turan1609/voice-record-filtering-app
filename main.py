@@ -5,10 +5,22 @@ import pandas as pd
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from voiceCommandDatabase import *
+from voice_record_page import VoiceRecorder
 from PyQt5 import uic
-import sqlite3
+from PyQt5.QtCore import QTimer
+
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
+import shutil
+import sys
+import sqlite3
+import wave
+import pyaudio
+from PyQt5.QtWidgets import QApplication, QDialog
+from voiceRecorderDialog import Ui_voiceRecorderDialog  # Sizin UI dosyanız
+from PyQt5.QtWidgets import QApplication, QMainWindow, QButtonGroup, QRadioButton, QVBoxLayout, QWidget
+from PyQt5.uic import loadUi
+
 
 
 
@@ -18,7 +30,11 @@ from PyQt5.QtCore import QUrl
 class CustomWidget(QtWidgets.QWidget):
     def __init__(self, name, language, gender, commend, file_name):
         super().__init__()
+
+
         layout = QtWidgets.QHBoxLayout(self)
+
+
 
         # Border'ı ayarla
         self.setStyleSheet(
@@ -49,12 +65,14 @@ class CustomWidget(QtWidgets.QWidget):
 
         # Play Button'a tıklayınca sesi çalma
         voices_folder = os.path.join(os.path.dirname(__file__), 'voices')
+        
         file_path = os.path.join(voices_folder, file_name)
         self.pushButtonCardExamplePlay.clicked.connect(lambda: self.play_sound(file_path))
 
         self.player.positionChanged.connect(self.update_progress)
         self.player.stateChanged.connect(self.on_player_state_changed)
-
+        
+        
         # Language Label
         self.labelCardExampleLanguage = QLabel(language)
         self.labelCardExampleLanguage.setStyleSheet(
@@ -126,7 +144,9 @@ class CustomWidget(QtWidgets.QWidget):
         if state == QMediaPlayer.StoppedState:
             self.progressBarCardExample.setValue(0)
 
-
+    
+    
+    
 #---------------- UYGULAMA OLUŞTURMA ---------------
 
 global last_query
@@ -136,6 +156,7 @@ Uygulama = QApplication(sys.argv)
 penAna = QMainWindow()
 ui = Ui_MainWindow()
 ui.setupUi(penAna)
+
 
 #--------------- VERİTABANI OLUŞTURMA --------------
 global curs
@@ -154,6 +175,78 @@ queryCreTblVoice = (
 )
 curs.execute(queryCreTblVoice)
 conn.commit()
+#--------------- VERİTABANINDAN İSİMLERİ VE COMMANDLARI ÇEKME --------------
+
+
+def load_names_from_database(force_update=False):
+        if not force_update:
+            return 
+        connection = sqlite3.connect("veritabani.db")
+        cursor = connection.cursor()
+        cursor.execute("SELECT DISTINCT Name FROM voice")
+        names = cursor.fetchall()
+        # ComboBox'ı temizle
+        ui.comboBoxFilterName.clear()
+        ui.comboBoxFilterName.addItem("All")
+        for name in names:
+            ui.comboBoxFilterName.addItem(name[0]) 
+        connection.close()
+load_names_from_database(force_update=True)
+
+
+def load_command_from_database(force_update=False):
+        if not force_update:
+            return
+        connection = sqlite3.connect("veritabani.db")  
+        cursor = connection.cursor()
+        cursor.execute("SELECT DISTINCT Commend FROM voice")  
+        command = cursor.fetchall()
+        ui.comboBoxFilterCommend.clear()
+        ui.comboBoxFilterCommend.addItem("All")
+        for commend in command:
+            ui.comboBoxFilterCommend.addItem(commend[0])  
+        connection.close()
+load_command_from_database(force_update=True)
+
+def first_row_count():
+        
+        connection = sqlite3.connect("veritabani.db")
+        cursor = connection.cursor()
+        cursor.execute("SELECT COUNT(*) FROM voice")
+        first_row_count = cursor.fetchone()[0]  # Toplam satır sayısını al
+        connection.close()
+        return first_row_count
+
+
+first_count_global = first_row_count()
+
+def get_row_count():
+        
+        connection = sqlite3.connect("veritabani.db")
+        cursor = connection.cursor()
+        cursor.execute("SELECT COUNT(*) FROM voice")
+        row_count = cursor.fetchone()[0]  # Toplam satır sayısını al
+        connection.close()
+        return row_count
+
+
+def check_for_changes(first_count):
+        current_count = get_row_count()
+        if current_count != first_count :
+            print("Değişiklik tespit edildi! Veriler güncelleniyor...")
+            load_names_from_database(force_update=True)
+            load_command_from_database(force_update=True)
+            global first_count_global 
+            first_count_global = current_count  
+            return print("first_count return kısmında:",first_count_global)
+        else:
+            print("Değişiklik yok.")
+            return first_count_global
+
+timer = QTimer()
+timer.timeout.connect(lambda:check_for_changes(first_count_global))
+timer.start(3000)
+
 
 
 #--------------- VERİTABANINDAN VERİ ÇEKME --------------
@@ -201,15 +294,18 @@ def FILTERDATA():
 
     global last_query
 
-
     # Dil kontrolleri
     english_selected = ui.radioButtonFilterLanguageEnglish.isChecked()
     turkish_selected = ui.radioButtonFilterLanguageTurkish.isChecked()
 
     # Cinsiyet kontrolleri
     male_selected = ui.radioButtonFilterGenderMale.isChecked()
+    
     female_selected = ui.radioButtonFilterGenderFemale.isChecked()
 
+    
+    
+    
     # Dil kontrolü
     if not (turkish_selected or english_selected):
         QtWidgets.QMessageBox.warning(None, "Uyarı", "Lütfen en az bir dil seçin.")
@@ -295,7 +391,6 @@ def FILTERDATA():
 
     # Sonuç sayısını göster
     ui.labelShowedDataNumber.setText(str(numberVoice))
-
 def clear_widgets():
     layout = ui.scrollAreaWidgetContents_2.layout()
 
@@ -306,7 +401,7 @@ def clear_widgets():
             if widget_to_remove is not None:
                 widget_to_remove.deleteLater()
         print("Tüm widget'lar silindi.")
-
+clear_widgets()
 def download_data():
     global last_query
     if last_query:
@@ -338,12 +433,47 @@ def download_data():
         QMessageBox.warning(None, "Error", "No data to download.")
 
 
+def download_voice():
+    global last_query
+    if last_query:
+        query, params = last_query  # Sorgu ve parametreleri al
+        curs.execute(query, params)  # Parametrelerle sorguyu çalıştır
+        data = curs.fetchall()
+        
+        # Sadece `.wav` uzantılı dosyaları filtrele
+        filtered_data = [row for row in data if row[5].endswith('.wav')]  # Url sütunu 5. indexte yer alıyor
+        
+        if not filtered_data:
+            QMessageBox.warning(None, "Error", "No .wav files found to download.")
+            return
 
+        # Kullanıcıdan nereye kaydetmek istediğini sormak için QFileDialog kullan
+        options = QFileDialog.Options()
+        target_folder = QFileDialog.getExistingDirectory(
+            None,
+            "Select Target Folder",
+            options=options
+        )
 
-
-
-
-
+        if target_folder:
+            try:
+                for row in filtered_data:
+                    source_path = os.path.join('voices', row[5])  # voices klasöründen dosya yolu oluştur
+                    target_path = os.path.join(target_folder, os.path.basename(row[5]))  # Hedef klasöre dosya adıyla kopyala
+                    
+                    if os.path.exists(source_path):
+                        shutil.copy2(source_path, target_path)  # Dosyayı kopyala (tüm metadata dahil)
+                        print(f"File copied: {source_path} -> {target_path}")
+                    else:
+                        print(f"File not found: {source_path}")
+                
+                QMessageBox.information(None, "Success", "All .wav files have been successfully downloaded.")
+            except Exception as e:
+                QMessageBox.warning(None, "Error", f"Failed to download files: {e}")
+        else:
+            QMessageBox.information(None, "Cancelled", "Download operation was cancelled.")
+    else:
+        QMessageBox.warning(None, "Error", "No data to download.")
 
 #-------------- UYGULAMA OLAYLARI -------------------
 #-------------- UYGULAMA OLAYLARI -------------------
@@ -351,6 +481,15 @@ ui.pushButtonButtonsShowAllData.clicked.connect(LISTALLDATA)
 ui.pushButtonButtonsFilterData.clicked.connect(FILTERDATA)
 ui.pushButtonButtonsClearData.clicked.connect(clear_widgets)
 ui.pushButtonButtonsDownloadData.clicked.connect(download_data)
+ui.pushButtonButtonsDownloadSound.clicked.connect(download_voice)
+
+
+
+#-------------- RECORD KISMI -------------------
+
+
+
+
 
 
 
@@ -359,3 +498,5 @@ ui.pushButtonButtonsDownloadData.clicked.connect(download_data)
 #--------------- UYGULAMAYI ÇALIŞTIRMA --------------
 penAna.show()
 sys.exit(Uygulama.exec_())
+
+

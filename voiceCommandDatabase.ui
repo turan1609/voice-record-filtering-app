@@ -10,6 +10,9 @@
     <height>480</height>
    </rect>
   </property>
+  <property name="cursor">
+   <cursorShape>PointingHandCursor</cursorShape>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -613,7 +616,7 @@ QRadioButton:hover{
              <string>Turkish</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="autoExclusive">
              <bool>false</bool>
@@ -654,7 +657,7 @@ QRadioButton:hover{
              <string>English</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="autoExclusive">
              <bool>false</bool>
@@ -704,6 +707,9 @@ border-color: #4d4018;</string>
           <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
           <property name="styleSheet">
            <string notr="true">QRadioButton{
 	background-color: #ff6d49;
@@ -720,10 +726,10 @@ QRadioButton:hover{
            <string>Male</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="autoExclusive">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -761,10 +767,10 @@ QRadioButton:hover{
            <string>Female</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="autoExclusive">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -1119,9 +1125,9 @@ QPushButton:pressed {
    <widget class="QWidget" name="widgetShowedData" native="true">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>730</x>
       <y>360</y>
-      <width>171</width>
+      <width>151</width>
       <height>61</height>
      </rect>
     </property>
@@ -1176,17 +1182,15 @@ border-color: #4d4018;</string>
    <widget class="QPushButton" name="pushButtonRecordVoice">
     <property name="geometry">
      <rect>
-      <x>810</x>
+      <x>890</x>
       <y>360</y>
-      <width>201</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <pointsize>-1</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
      </font>
     </property>
     <property name="cursor">
@@ -1211,6 +1215,22 @@ QPushButton:pressed {
     </property>
     <property name="text">
      <string>Record Voice</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonButtonsDownloadSound">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>370</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Download Voice</string>
     </property>
    </widget>
   </widget>
