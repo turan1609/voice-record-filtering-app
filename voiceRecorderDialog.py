@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_voiceRecorderDialog(object):
     def setupUi(self, voiceRecorderDialog):
         voiceRecorderDialog.setObjectName("voiceRecorderDialog")
-        voiceRecorderDialog.resize(847, 431)
+        voiceRecorderDialog.resize(462, 411)
         voiceRecorderDialog.setStyleSheet("QToolTip\n"
 "{\n"
 "     border: 1px solid black;\n"
@@ -534,7 +534,7 @@ class Ui_voiceRecorderDialog(object):
 "    min-width: 50px;\n"
 "}")
         self.frameFilter = QtWidgets.QFrame(voiceRecorderDialog)
-        self.frameFilter.setGeometry(QtCore.QRect(40, 20, 432, 311))
+        self.frameFilter.setGeometry(QtCore.QRect(10, 10, 432, 311))
         self.frameFilter.setStyleSheet("background-color:#ffa850;\n"
 "border-style: solid;\n"
 "border-width: 5px;\n"
@@ -574,8 +574,8 @@ class Ui_voiceRecorderDialog(object):
 "    background-color: red;\n"
 "}\n"
 "")
-        self.radioButtonDialogLanguageTurkish.setChecked(True)
-        self.radioButtonDialogLanguageTurkish.setAutoExclusive(False)
+        self.radioButtonDialogLanguageTurkish.setChecked(False)
+        self.radioButtonDialogLanguageTurkish.setAutoExclusive(True)
         self.radioButtonDialogLanguageTurkish.setObjectName("radioButtonDialogLanguageTurkish")
         self.horizontalLayout_22.addWidget(self.radioButtonDialogLanguageTurkish)
         spacerItem1 = QtWidgets.QSpacerItem(88, 77, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -592,8 +592,8 @@ class Ui_voiceRecorderDialog(object):
 "    background-color: red;\n"
 "}\n"
 "")
-        self.radioButtonDialogLanguageEnglish.setChecked(True)
-        self.radioButtonDialogLanguageEnglish.setAutoExclusive(False)
+        self.radioButtonDialogLanguageEnglish.setChecked(False)
+        self.radioButtonDialogLanguageEnglish.setAutoExclusive(True)
         self.radioButtonDialogLanguageEnglish.setObjectName("radioButtonDialogLanguageEnglish")
         self.horizontalLayout_22.addWidget(self.radioButtonDialogLanguageEnglish)
         self.gridLayout_5.addLayout(self.horizontalLayout_22, 0, 0, 1, 1)
@@ -625,8 +625,8 @@ class Ui_voiceRecorderDialog(object):
 "    background-color: red;\n"
 "}\n"
 "")
-        self.radioButtonDialogGenderMale.setChecked(True)
-        self.radioButtonDialogGenderMale.setAutoExclusive(False)
+        self.radioButtonDialogGenderMale.setChecked(False)
+        self.radioButtonDialogGenderMale.setAutoExclusive(True)
         self.radioButtonDialogGenderMale.setObjectName("radioButtonDialogGenderMale")
         self.gridLayout_4.addWidget(self.radioButtonDialogGenderMale, 0, 2, 1, 1)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -643,8 +643,8 @@ class Ui_voiceRecorderDialog(object):
 "    background-color: red;\n"
 "}\n"
 "")
-        self.radioButtonDialogGenderFemale.setChecked(True)
-        self.radioButtonDialogGenderFemale.setAutoExclusive(False)
+        self.radioButtonDialogGenderFemale.setChecked(False)
+        self.radioButtonDialogGenderFemale.setAutoExclusive(True)
         self.radioButtonDialogGenderFemale.setObjectName("radioButtonDialogGenderFemale")
         self.gridLayout_4.addWidget(self.radioButtonDialogGenderFemale, 0, 4, 1, 1)
         self.verticalLayout_3.addWidget(self.widgetFilterGender)
@@ -709,7 +709,7 @@ class Ui_voiceRecorderDialog(object):
         self.gridLayout_10.addLayout(self.horizontalLayout_27, 0, 0, 1, 1)
         self.verticalLayout_3.addWidget(self.widgetFilterCommend)
         self.pushButtonDialogRecordVoice = QtWidgets.QPushButton(voiceRecorderDialog)
-        self.pushButtonDialogRecordVoice.setGeometry(QtCore.QRect(500, 40, 201, 61))
+        self.pushButtonDialogRecordVoice.setGeometry(QtCore.QRect(130, 330, 201, 61))
         font = QtGui.QFont()
         font.setPointSize(-1)
         self.pushButtonDialogRecordVoice.setFont(font)

@@ -31,10 +31,13 @@ class CustomWidget(QtWidgets.QWidget):
     def __init__(self, name, language, gender, commend, file_name):
         super().__init__()
 
+        self.name = name
+        self.language = language
+        self.gender = gender
+        self.commend = commend
+        self.file_name = file_name
 
         layout = QtWidgets.QHBoxLayout(self)
-
-
 
         # Border'ı ayarla
         self.setStyleSheet(
@@ -65,14 +68,9 @@ class CustomWidget(QtWidgets.QWidget):
 
         # Play Button'a tıklayınca sesi çalma
         voices_folder = os.path.join(os.path.dirname(__file__), 'voices')
-        
         file_path = os.path.join(voices_folder, file_name)
         self.pushButtonCardExamplePlay.clicked.connect(lambda: self.play_sound(file_path))
 
-        self.player.positionChanged.connect(self.update_progress)
-        self.player.stateChanged.connect(self.on_player_state_changed)
-        
-        
         # Language Label
         self.labelCardExampleLanguage = QLabel(language)
         self.labelCardExampleLanguage.setStyleSheet(
@@ -109,44 +107,198 @@ class CustomWidget(QtWidgets.QWidget):
         )
         layout.addWidget(self.labelCardExampleCommend)
 
-        # Progress Bar
-        self.progressBarCardExample = QProgressBar()
-        self.progressBarCardExample.setStyleSheet(
-            "background-color: black;"
+        # Düzenle Butonu
+        self.pushButtonEdit = QPushButton('Edit')
+        self.pushButtonEdit.setStyleSheet(
+            "QPushButton {"
+            "border-style: solid;"
+            "border-width: 3px;"
+            "background-color: #add8e6;"
+            "border-color: #4d4018;"
+            "color: black;"
+            "}"
+            "QPushButton:hover {"
+            "background-color: #87ceeb;"
+            "}"
+        )
+        self.pushButtonEdit.clicked.connect(self.edit_properties)
+        layout.addWidget(self.pushButtonEdit)
+
+        # Sil Butonu
+        self.pushButtonDelete = QPushButton('Delete')
+        self.pushButtonDelete.setStyleSheet(
+            "QPushButton {"
+            "border-style: solid;"
+            "border-width: 3px;"
+            "background-color: #ff6d49;"
+            "border-color: #4d4018;"
+            "color: black;"
+            "}"
+            "QPushButton:hover {"
+            "background-color: red;"
+            "}"
+        )
+        layout.addWidget(self.pushButtonDelete)
+
+        # Download Butonu
+        self.pushButtonDownload = QPushButton('Download')
+        self.pushButtonDownload.setStyleSheet(
+            "QPushButton {"
+            "border-style: solid;"
+            "border-width: 3px;"
+            "background-color: #ff6d49;"
+            "border-color: #4d4018;"
+            "color: black;"
+            "}"
+            "QPushButton:hover {"
+            "background-color: red;"
+            "}"
+        )
+        layout.addWidget(self.pushButtonDownload)
+
+
+        # Ses Label'ı için Alan Bırakma
+        self.labelCardExampleAudioSpace = QLabel("Audio Label Placeholder")
+        self.labelCardExampleAudioSpace.setStyleSheet(
+            "background-color: #ffe4b5;"
+            "color: black;"
             "border-color: #4d4018;"
         )
-        self.progressBarCardExample.setValue(0)
-        layout.addWidget(self.progressBarCardExample)
+        layout.addWidget(self.labelCardExampleAudioSpace)
 
     # Ses Çalma Fonksiyonu
-    print("1")
-
     def play_sound(self, file_path):
-        print("1")
         if os.path.exists(file_path):  # Dosyanın mevcut olup olmadığını kontrol et
-            print("2")
             self.player.setMedia(QMediaContent(QUrl.fromLocalFile(file_path)))
-            print("3")
             self.player.play()
-            print("4")
-            print(f"Çalınıyor: {file_path}")
-            print("5")
         else:
             print(f"Ses dosyası bulunamadı: {file_path}")
 
-    def update_progress(self, position):
-        # İlerleme çubuğunu güncelle
-        duration = self.player.duration()
-        if duration > 0:
-            self.progressBarCardExample.setValue(int((position / duration) * 100))
+    # Özellikleri Düzenleme Fonksiyonu
+    def edit_properties(self):
+        dialog = QtWidgets.QDialog(self)
+        dialog.setWindowTitle("Edit Properties")
 
-    def on_player_state_changed(self, state):
-        if state == QMediaPlayer.StoppedState:
-            self.progressBarCardExample.setValue(0)
+        layout = QtWidgets.QFormLayout(dialog)
 
-    
-    
-    
+        # QLabel'lar ekle ve stil uygula
+        name_label = QtWidgets.QLabel("Name:")
+        name_label.setStyleSheet(
+            "color: red;"
+            "font-weight: bold;"
+            "font-size: 12px;"
+            
+            "padding: 2px;"
+            "border: 1px solid #4d4018;"
+            "border-radius: 3px;"
+        )
+        language_label = QtWidgets.QLabel("Language:")
+        language_label.setStyleSheet(
+            "color: red;"
+            "font-style: italic;"
+            "font-size: 12px;"
+            
+            "padding: 2px;"
+            "border: 1px solid #4d4018;"
+            "border-radius: 3px;"
+        )
+        gender_label = QtWidgets.QLabel("Gender:")
+        gender_label.setStyleSheet(
+            "color: red;"
+            "font-size: 12px;"
+            
+            "padding: 2px;"
+            "border: 1px solid #4d4018;"
+            "border-radius: 3px;"
+        )
+        commend_label = QtWidgets.QLabel("Commend:")
+        commend_label.setStyleSheet(
+            "color: red;"
+            "font-weight: bold;"
+            "font-size: 12px;"
+            
+            "padding: 2px;"
+            "border: 1px solid #4d4018;"
+            "border-radius: 3px;"
+        )
+
+        name_input = QtWidgets.QLineEdit(self.name)
+        name_input.setStyleSheet(
+            "background-color: #f0f0f0;"
+            "border: 1px solid #4d4018;"
+            "color: black;"
+
+        )
+        language_input = QtWidgets.QLineEdit(self.language)
+        language_input.setStyleSheet(
+            "background-color: #f0f0f0;"
+            "border: 1px solid #4d4018;"
+            "color: black;"
+        )
+        gender_input = QtWidgets.QLineEdit(self.gender)
+        gender_input.setStyleSheet(
+            "background-color: #f0f0f0;"
+            "border: 1px solid #4d4018;"
+            "color: black;"
+        )
+        commend_input = QtWidgets.QLineEdit(self.commend)
+        commend_input.setStyleSheet(
+            "background-color: #f0f0f0;"
+            "border: 1px solid #4d4018;"
+            "color: black;"
+        )
+
+        layout.addRow(name_label, name_input)
+        layout.addRow(language_label, language_input)
+        layout.addRow(gender_label, gender_input)
+        layout.addRow(commend_label, commend_input)
+
+        save_button = QtWidgets.QPushButton("Save")
+        save_button.setStyleSheet(
+            "background-color: #00FF00;"
+            "border: 1px solid #4d4018;"
+            "color: black;"
+        )
+        save_button.clicked.connect(lambda: self.save_properties(dialog, name_input, language_input, gender_input, commend_input))
+        layout.addWidget(save_button)
+
+        dialog.setLayout(layout)
+        dialog.exec_()
+
+    def save_properties(self, dialog, name_input, language_input, gender_input, commend_input):
+        name = name_input.text().strip()
+        language = language_input.text().strip()
+        gender = gender_input.text().strip()
+        commend = commend_input.text().strip()
+
+        # Doğrulama
+        if not name or not language or not gender or not commend:
+            QtWidgets.QMessageBox.warning(dialog, "Validation Error", "All fields must be filled!")
+            return
+
+        if language not in ["en", "tr"]:
+            QtWidgets.QMessageBox.warning(dialog, "Validation Error", "Language must be 'en' or 'tr'!")
+            return
+
+        if gender not in ["male", "female"]:
+            QtWidgets.QMessageBox.warning(dialog, "Validation Error", "Gender must be 'male' or 'female'!")
+            return
+
+        # Değerleri güncelle
+        self.name = name
+        self.language = language
+        self.gender = gender
+        self.commend = commend
+
+        # Widget üzerindeki etiketleri güncelle
+        self.labelCardExampleName.setText(self.name)
+        self.labelCardExampleLanguage.setText(self.language)
+        self.labelCardExampleGender.setText(self.gender)
+        self.labelCardExampleCommend.setText(self.commend)
+
+        dialog.accept()
+
+
 #---------------- UYGULAMA OLUŞTURMA ---------------
 
 global last_query

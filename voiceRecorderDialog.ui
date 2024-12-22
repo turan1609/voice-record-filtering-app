@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>847</width>
-    <height>431</height>
+    <width>462</width>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -536,8 +536,8 @@ QAbstractSpinBox {
   <widget class="QFrame" name="frameFilter">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>20</y>
+     <x>10</x>
+     <y>10</y>
      <width>432</width>
      <height>311</height>
     </rect>
@@ -612,10 +612,10 @@ QRadioButton:hover{
             <string>Turkish</string>
            </property>
            <property name="checked">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="autoExclusive">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -653,10 +653,10 @@ QRadioButton:hover{
             <string>English</string>
            </property>
            <property name="checked">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="autoExclusive">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -719,10 +719,10 @@ QRadioButton:hover{
           <string>Male</string>
          </property>
          <property name="checked">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="autoExclusive">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -760,10 +760,10 @@ QRadioButton:hover{
           <string>Female</string>
          </property>
          <property name="checked">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="autoExclusive">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -861,8 +861,8 @@ QLineEdit:hover{
   <widget class="QPushButton" name="pushButtonDialogRecordVoice">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>40</y>
+     <x>130</x>
+     <y>330</y>
      <width>201</width>
      <height>61</height>
     </rect>
