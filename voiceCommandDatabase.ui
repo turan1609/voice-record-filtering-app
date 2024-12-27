@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1235</width>
-    <height>480</height>
+    <width>1537</width>
+    <height>668</height>
    </rect>
   </property>
   <property name="cursor">
@@ -946,7 +946,7 @@ QComboBox:hover{
      <rect>
       <x>500</x>
       <y>20</y>
-      <width>671</width>
+      <width>981</width>
       <height>311</height>
      </rect>
     </property>
@@ -979,7 +979,7 @@ background-color: #ffe5d8;</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>635</width>
+          <width>945</width>
           <height>275</height>
          </rect>
         </property>
@@ -1125,7 +1125,7 @@ QPushButton:pressed {
    <widget class="QWidget" name="widgetShowedData" native="true">
     <property name="geometry">
      <rect>
-      <x>1010</x>
+      <x>1260</x>
       <y>350</y>
       <width>151</width>
       <height>61</height>
@@ -1182,7 +1182,7 @@ border-color: #4d4018;</string>
    <widget class="QPushButton" name="pushButtonRecordVoice">
     <property name="geometry">
      <rect>
-      <x>790</x>
+      <x>940</x>
       <y>350</y>
       <width>161</width>
       <height>61</height>
@@ -1220,7 +1220,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="pushButtonButtonsDownloadSound">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>670</x>
       <y>360</y>
       <width>161</width>
       <height>51</height>
@@ -1239,7 +1239,7 @@ QPushButton:pressed {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1235</width>
+     <width>1537</width>
      <height>26</height>
     </rect>
    </property>

@@ -8,7 +8,10 @@ from voiceCommandDatabase import *
 from voice_record_page import VoiceRecorder
 from PyQt5 import uic
 from PyQt5.QtCore import QTimer
-
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPen
+import numpy as np
+from pydub import AudioSegment
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
 import shutil
@@ -22,8 +25,43 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QButtonGroup, QRadioButto
 from PyQt5.uic import loadUi
 
 
+#-------------------- Ses Dalgası --------------------
+class AudioWaveformWidget(QGraphicsView):
+    def __init__(self, file_path, parent=None):
+        super().__init__(parent)
+        self.scene = QGraphicsScene(self)
+        self.setScene(self.scene)
 
+        self.file_path = file_path
+        self.load_waveform()
 
+    def load_waveform(self):
+        # Ses dosyasını yükle
+        try:
+            audio = AudioSegment.from_file(self.file_path)
+            samples = np.array(audio.get_array_of_samples())
+
+            # Normalize et
+            samples = samples / np.max(np.abs(samples))
+
+            # Dalga formunu çiz
+            pen = QPen(Qt.blue)
+            pen.setWidth(1)
+
+            width = 200  # Dalga formu genişliği
+            height = 200  # Dalga formu yüksekliği
+            self.setFixedSize(width, height)
+
+            #half_height = height // 2
+            step = max(1, len(samples) // width)  # Ekran genişliğine göre örnekleme
+
+            for i in range(0, len(samples), step):
+                x = i // step
+                y = int(height * samples[i])  # Genliği ölçekle
+                self.scene.addLine(x, height, x, height - y, pen)
+
+        except Exception as e:
+            print(f"Error loading waveform: {e}")
 
 
 #---------------- ÖZEL WIDGET TANIMI ---------------
@@ -78,6 +116,7 @@ class CustomWidget(QtWidgets.QWidget):
             "color: black;"
             "border-color: #4d4018;"
         )
+        self.labelCardExampleLanguage.setFixedSize(50, 30)
         layout.addWidget(self.labelCardExampleLanguage)
 
         # Gender Label
@@ -86,7 +125,8 @@ class CustomWidget(QtWidgets.QWidget):
             "background-color: #ff9b0f;"
             "color: black;"
             "border-color: #4d4018;"
-        )
+        ),
+        self.labelCardExampleGender.setFixedSize(50, 30)
         layout.addWidget(self.labelCardExampleGender)
 
         # Name Label
@@ -96,6 +136,7 @@ class CustomWidget(QtWidgets.QWidget):
             "color: black;"
             "border-color: #4d4018;"
         )
+        self.labelCardExampleName.setFixedSize(70, 30)
         layout.addWidget(self.labelCardExampleName)
 
         # Voice Command Label
@@ -105,6 +146,7 @@ class CustomWidget(QtWidgets.QWidget):
             "color: black;"
             "border-color: #4d4018;"
         )
+        self.labelCardExampleCommend.setFixedSize(70, 30)
         layout.addWidget(self.labelCardExampleCommend)
 
         # Düzenle Butonu
@@ -157,14 +199,9 @@ class CustomWidget(QtWidgets.QWidget):
         layout.addWidget(self.pushButtonDownload)
 
 
-        # Ses Label'ı için Alan Bırakma
-        self.labelCardExampleAudioSpace = QLabel("Audio Label Placeholder")
-        self.labelCardExampleAudioSpace.setStyleSheet(
-            "background-color: #ffe4b5;"
-            "color: black;"
-            "border-color: #4d4018;"
-        )
-        layout.addWidget(self.labelCardExampleAudioSpace)
+        # Ses Dalga Formu Widget'ını ekle
+        self.audio_waveform_widget = AudioWaveformWidget(file_path)
+        layout.addWidget(self.audio_waveform_widget)
 
     # Ses Çalma Fonksiyonu
     def play_sound(self, file_path):
@@ -627,27 +664,17 @@ def download_voice():
     else:
         QMessageBox.warning(None, "Error", "No data to download.")
 
+
 #-------------- UYGULAMA OLAYLARI -------------------
-#-------------- UYGULAMA OLAYLARI -------------------
+
 ui.pushButtonButtonsShowAllData.clicked.connect(LISTALLDATA)
 ui.pushButtonButtonsFilterData.clicked.connect(FILTERDATA)
 ui.pushButtonButtonsClearData.clicked.connect(clear_widgets)
 ui.pushButtonButtonsDownloadData.clicked.connect(download_data)
 ui.pushButtonButtonsDownloadSound.clicked.connect(download_voice)
 
-
-
-#-------------- RECORD KISMI -------------------
-
-
-
-
-
-
-
-
-
 #--------------- UYGULAMAYI ÇALIŞTIRMA --------------
+
 penAna.show()
 sys.exit(Uygulama.exec_())
 
