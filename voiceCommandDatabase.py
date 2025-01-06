@@ -11,10 +11,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from voice_record_page import *
 
+
 class Ui_MainWindow(object):
     def open_record_page(self):
         self.window = VoiceRecorder()
         self.window.show()
+    
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1537, 668)
@@ -633,7 +635,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.radioButtonFilterGenderMale.setChecked(False)
-        self.radioButtonFilterGenderMale.setAutoExclusive(True)
+        self.radioButtonFilterGenderMale.setAutoExclusive(False)
         self.radioButtonFilterGenderMale.setObjectName("radioButtonFilterGenderMale")
         self.gridLayout_4.addWidget(self.radioButtonFilterGenderMale, 0, 2, 1, 1)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -651,7 +653,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.radioButtonFilterGenderFemale.setChecked(False)
-        self.radioButtonFilterGenderFemale.setAutoExclusive(True)
+        self.radioButtonFilterGenderFemale.setAutoExclusive(False)
         self.radioButtonFilterGenderFemale.setObjectName("radioButtonFilterGenderFemale")
         self.gridLayout_4.addWidget(self.radioButtonFilterGenderFemale, 0, 4, 1, 1)
         self.verticalLayout_3.addWidget(self.widgetFilterGender)
@@ -896,6 +898,9 @@ class Ui_MainWindow(object):
         self.pushButtonButtonsDownloadSound.setGeometry(QtCore.QRect(670, 360, 161, 51))
         self.pushButtonButtonsDownloadSound.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButtonButtonsDownloadSound.setObjectName("pushButtonButtonsDownloadSound")
+        self.plainText_Terminal = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.plainText_Terminal.setGeometry(QtCore.QRect(33, 446, 1451, 151))
+        self.plainText_Terminal.setObjectName("plainText_Terminal")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1537, 26))
@@ -940,15 +945,5 @@ class Ui_MainWindow(object):
         self.labelShowedDataNumber.setText(_translate("MainWindow", "22"))
         self.labelShowedData.setText(_translate("MainWindow", "Showed Data:"))
         self.pushButtonRecordVoice.setText(_translate("MainWindow", "Record Voice"))
-        self.pushButtonButtonsDownloadSound.setText(_translate("MainWindow", "Download All Voices"))
         self.pushButtonRecordVoice.clicked.connect(self.open_record_page)
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+        self.pushButtonButtonsDownloadSound.setText(_translate("MainWindow", "Download All Voices"))

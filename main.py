@@ -2,6 +2,7 @@
 import sys
 import os
 import pandas as pd
+from PyQt5.QtCore import QObject, pyqtSignal, QThread
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from voiceCommandDatabase import *
@@ -35,6 +36,11 @@ class AudioWaveformWidget(QGraphicsView):
         self.file_path = file_path
         self.load_waveform()
 
+
+
+
+
+
     def load_waveform(self):
         # Ses dosyasını yükle
         try:
@@ -62,8 +68,20 @@ class AudioWaveformWidget(QGraphicsView):
 
         except Exception as e:
             print(f"Error loading waveform: {e}")
+class StreamRedirector(QObject):
+    new_text = pyqtSignal(str)
 
+    def write(self, text):
+        self.new_text.emit(text)
 
+    def flush(self):
+        pass
+def redirect_output():
+    global output_stream
+    output_stream = StreamRedirector()
+    output_stream.new_text.connect(ui.plainText_Terminal.appendPlainText)  
+    sys.stdout = output_stream
+    sys.stderr = output_stream
 #---------------- ÖZEL WIDGET TANIMI ---------------
 class CustomWidget(QtWidgets.QWidget):
     def __init__(self, name, language, gender, commend, file_name):
@@ -107,7 +125,9 @@ class CustomWidget(QtWidgets.QWidget):
         # Play Button'a tıklayınca sesi çalma
         voices_folder = os.path.join(os.path.dirname(__file__), 'voices')
         file_path = os.path.join(voices_folder, file_name)
-        self.pushButtonCardExamplePlay.clicked.connect(lambda: self.play_sound(file_path))
+        self.pushButtonCardExamplePlay.clicked.connect(lambda:self.play_sound(file_path))
+        print("sesi calacak yol: ")
+        print(file_name)
 
         # Language Label
         self.labelCardExampleLanguage = QLabel(language)
@@ -180,7 +200,9 @@ class CustomWidget(QtWidgets.QWidget):
             "background-color: red;"
             "}"
         )
+        self.pushButtonDelete.clicked.connect(self.delete_selected_row)
         layout.addWidget(self.pushButtonDelete)
+
 
         # Download Butonu
         self.pushButtonDownload = QPushButton('Download')
@@ -196,6 +218,7 @@ class CustomWidget(QtWidgets.QWidget):
             "background-color: red;"
             "}"
         )
+        self.pushButtonDownload.clicked.connect(self.download_selected_file)
         layout.addWidget(self.pushButtonDownload)
 
 
@@ -204,12 +227,103 @@ class CustomWidget(QtWidgets.QWidget):
         layout.addWidget(self.audio_waveform_widget)
 
     # Ses Çalma Fonksiyonu
-    def play_sound(self, file_path):
+    def play_sound(self, file_path=None):
+        voices_folder = os.path.join(os.path.dirname(__file__), 'voices')
+        file_path = os.path.join(voices_folder, self.file_name)
+        print(file_path)
+        if file_path == None:
+           file_path = self.file_path
+           print("filpath güncelleniyor")
+           print(file_path)  
+
         if os.path.exists(file_path):  # Dosyanın mevcut olup olmadığını kontrol et
+            self.player.stop()
             self.player.setMedia(QMediaContent(QUrl.fromLocalFile(file_path)))
             self.player.play()
         else:
             print(f"Ses dosyası bulunamadı: {file_path}")
+
+
+
+    def download_selected_file(self):
+        # Ses dosyalarının klasörü
+        voices_folder = os.path.join(os.path.dirname(__file__), 'voices')
+
+        # Dosya yolu
+        file_path = os.path.join(voices_folder, self.file_name)
+
+        # Dosyanın varlığını kontrol et
+        if not os.path.exists(file_path):
+            QtWidgets.QMessageBox.warning(self, "Error", f"File not found: {self.file_name}")
+            return
+
+        # Kullanıcıdan hedef klasörü seçmesini isteyin
+        options = QtWidgets.QFileDialog.Options()
+        target_folder = QtWidgets.QFileDialog.getExistingDirectory(
+            self,
+            "Select Target Folder",
+            options=options
+        )
+
+        # Eğer bir klasör seçilmezse işlemi sonlandır
+        if not target_folder:
+            QtWidgets.QMessageBox.information(self, "Cancelled", "Download operation was cancelled.")
+            return
+
+        # Hedef dosya yolunu oluştur
+        target_path = os.path.join(target_folder, os.path.basename(self.file_name))
+
+        # Dosyayı hedefe kopyala
+        try:
+            shutil.copy2(file_path, target_path)
+            QtWidgets.QMessageBox.information(self, "Success", f"File downloaded to: {target_path}")
+        except Exception as e:
+            QtWidgets.QMessageBox.warning(self, "Error", f"Failed to download file: {e}")
+
+
+
+    def edit_to_database (self, name_input, language_input, gender_input, commend_input):
+           # Veritabanı bağlantısını aç
+        connection = sqlite3.connect("veritabani.db")
+        cursor = connection.cursor()
+
+        try:
+            # Güncelleme sorgusunu çalıştır
+            update_query = """
+                UPDATE voice
+                SET Language = ?, Gender = ?, Name = ?, Commend = ?, Url = ?
+                WHERE Url = ?
+            """
+            new_url = f"{self.name}_{self.gender}_{self.commend}_{self.language}.wav"
+            print(new_url)
+            
+            cursor.execute(update_query, (self.language, self.gender, self.name, self.commend, new_url, self.file_name))
+            
+            print(f"Record updated successfully: {self.file_name}")
+            voices_folder = os.path.join(os.path.dirname(__file__), 'voices')  # Ses dosyalarının bulunduğu klasör
+            old_file_path = os.path.join(voices_folder, self.file_name)
+            self.file_name = new_url
+            new_file_path = os.path.join(voices_folder, new_url)
+            if os.path.exists(old_file_path):
+                os.rename(old_file_path, new_file_path)
+                print(f"Dosya adı değiştirildi: {old_file_path} -> {new_file_path}")
+            else:
+                print(f"Eski dosya bulunamadı: {old_file_path}")
+            self.file_name = new_url
+            self.file_path = new_file_path
+            print(f"Updated file_path: {self.file_path}")
+            connection.commit()
+            
+            
+        except sqlite3.Error as e:
+            print(f"Error updating record: {e}")
+        finally:
+            # Veritabanı bağlantısını kapat
+            load_names_from_database(force_update=True)
+            load_command_from_database(force_update=True)
+            connection.close()
+           
+
 
     # Özellikleri Düzenleme Fonksiyonu
     def edit_properties(self):
@@ -334,7 +448,44 @@ class CustomWidget(QtWidgets.QWidget):
         self.labelCardExampleCommend.setText(self.commend)
 
         dialog.accept()
+        self.edit_to_database(self.name,self.language,self.gender,self.commend)
 
+#---------------- DB'DEN SILME   ---------------
+    def delete_selected_row(self):
+    # Silinecek kaydın benzersiz URL'si (veya başka bir benzersiz kimlik)
+        selected_url = self.file_name  # Mevcut widget üzerinden belirleniyor
+
+        try:
+            # Veritabanına bağlan
+            connection = sqlite3.connect("veritabani.db")
+            cursor = connection.cursor()
+
+            # Veritabanından kaydı sil
+            delete_query = "DELETE FROM voice WHERE Url = ?"
+            cursor.execute(delete_query, (selected_url,))
+            connection.commit()
+
+            print(f"Veritabanından kayıt silindi: {selected_url}")
+
+            # UI'deki widget'ı kaldır
+            self.deleteLater()
+
+            # Fiziksel dosyayı sil
+            voices_folder = os.path.join(os.path.dirname(__file__), 'voices')
+            file_path = os.path.join(voices_folder, selected_url)
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                print(f"Dosya silindi: {file_path}")
+            else:
+                print(f"Dosya bulunamadı: {file_path}")
+
+        except sqlite3.Error as e:
+            print(f"Veritabanından kayıt silinirken hata: {e}")
+        except OSError as e:
+            print(f"Dosya silinirken hata: {e}")
+        finally:
+            if 'connection' in locals():
+                connection.close()
 
 #---------------- UYGULAMA OLUŞTURMA ---------------
 
@@ -497,12 +648,12 @@ def FILTERDATA():
     
     # Dil kontrolü
     if not (turkish_selected or english_selected):
-        QtWidgets.QMessageBox.warning(None, "Uyarı", "Lütfen en az bir dil seçin.")
+        QtWidgets.QMessageBox.warning(None, "Warning!", "Pick at least one Language.")
         return  # Fonksiyonu sonlandır
 
     # Cinsiyet kontrolü
     if not (male_selected or female_selected):
-        QtWidgets.QMessageBox.warning(None, "Uyarı", "Lütfen en az bir cinsiyet seçin.")
+        QtWidgets.QMessageBox.warning(None, "Warning!", "Pick at least one Gender")
         return  # Fonksiyonu sonlandır
 
     # Seçilen dillerin listesini oluştur
@@ -674,7 +825,7 @@ ui.pushButtonButtonsDownloadData.clicked.connect(download_data)
 ui.pushButtonButtonsDownloadSound.clicked.connect(download_voice)
 
 #--------------- UYGULAMAYI ÇALIŞTIRMA --------------
-
+redirect_output()
 penAna.show()
 sys.exit(Uygulama.exec_())
 

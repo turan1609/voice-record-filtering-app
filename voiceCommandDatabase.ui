@@ -729,7 +729,7 @@ QRadioButton:hover{
            <bool>false</bool>
           </property>
           <property name="autoExclusive">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -770,7 +770,7 @@ QRadioButton:hover{
            <bool>false</bool>
           </property>
           <property name="autoExclusive">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -1231,6 +1231,16 @@ QPushButton:pressed {
     </property>
     <property name="text">
      <string>Download All Voices</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainText_Terminal">
+    <property name="geometry">
+     <rect>
+      <x>33</x>
+      <y>446</y>
+      <width>1451</width>
+      <height>151</height>
+     </rect>
     </property>
    </widget>
   </widget>
