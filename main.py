@@ -74,8 +74,6 @@ class StreamRedirector(QObject):
     def write(self, text):
         self.new_text.emit(text)
 
-    def flush(self):
-        pass
 def redirect_output():
     global output_stream
     output_stream = StreamRedirector()
@@ -126,7 +124,7 @@ class CustomWidget(QtWidgets.QWidget):
         voices_folder = os.path.join(os.path.dirname(__file__), 'voices')
         file_path = os.path.join(voices_folder, file_name)
         self.pushButtonCardExamplePlay.clicked.connect(lambda:self.play_sound(file_path))
-        print("sesi calacak yol: ")
+        print("File path: ")
         print(file_name)
 
         # Language Label
@@ -233,7 +231,7 @@ class CustomWidget(QtWidgets.QWidget):
         print(file_path)
         if file_path == None:
            file_path = self.file_path
-           print("filpath güncelleniyor")
+           print("File_path is updating.")
            print(file_path)  
 
         if os.path.exists(file_path):  # Dosyanın mevcut olup olmadığını kontrol et
@@ -241,7 +239,7 @@ class CustomWidget(QtWidgets.QWidget):
             self.player.setMedia(QMediaContent(QUrl.fromLocalFile(file_path)))
             self.player.play()
         else:
-            print(f"Ses dosyası bulunamadı: {file_path}")
+            print(f"Voice folder not found: {file_path}")
 
 
 
@@ -306,9 +304,9 @@ class CustomWidget(QtWidgets.QWidget):
             new_file_path = os.path.join(voices_folder, new_url)
             if os.path.exists(old_file_path):
                 os.rename(old_file_path, new_file_path)
-                print(f"Dosya adı değiştirildi: {old_file_path} -> {new_file_path}")
+                print(f"File name changed: {old_file_path} -> {new_file_path}")
             else:
-                print(f"Eski dosya bulunamadı: {old_file_path}")
+                print(f"Old file path: {old_file_path}")
             self.file_name = new_url
             self.file_path = new_file_path
             print(f"Updated file_path: {self.file_path}")
@@ -475,14 +473,14 @@ class CustomWidget(QtWidgets.QWidget):
             file_path = os.path.join(voices_folder, selected_url)
             if os.path.exists(file_path):
                 os.remove(file_path)
-                print(f"Dosya silindi: {file_path}")
+                print(f"File Removed: {file_path}")
             else:
-                print(f"Dosya bulunamadı: {file_path}")
+                print(f"File can't found: {file_path}")
 
         except sqlite3.Error as e:
-            print(f"Veritabanından kayıt silinirken hata: {e}")
+            print(f"Error while deleting data from database: {e}")
         except OSError as e:
-            print(f"Dosya silinirken hata: {e}")
+            print(f"Error while deleting data: {e}")
         finally:
             if 'connection' in locals():
                 connection.close()
@@ -565,7 +563,7 @@ def get_row_count():
         connection = sqlite3.connect("veritabani.db")
         cursor = connection.cursor()
         cursor.execute("SELECT COUNT(*) FROM voice")
-        row_count = cursor.fetchone()[0]  # Toplam satır sayısını al
+        row_count = cursor.fetchone()[0]  
         connection.close()
         return row_count
 
@@ -573,14 +571,14 @@ def get_row_count():
 def check_for_changes(first_count):
         current_count = get_row_count()
         if current_count != first_count :
-            print("Değişiklik tespit edildi! Veriler güncelleniyor...")
+            print("Changed detected! Data is being updated...")
             load_names_from_database(force_update=True)
             load_command_from_database(force_update=True)
             global first_count_global 
             first_count_global = current_count  
-            return print("first_count return kısmında:",first_count_global)
+            return print("Total Data:",first_count_global)
         else:
-            print("Değişiklik yok.")
+            print("No change.")
             return first_count_global
 
 timer = QTimer()
@@ -596,10 +594,10 @@ def LISTALLDATA():
     if scrollAreaWidgetContents_2.layout() is None:
         verticalLayout = QVBoxLayout(scrollAreaWidgetContents_2)
         scrollAreaWidgetContents_2.setLayout(verticalLayout)
-        print("Yeni layout oluşturuldu.")
+        print("New layout created.")
     else:
         verticalLayout = scrollAreaWidgetContents_2.layout()
-        print("Mevcut layout bulundu.")
+        print("Layout found.")
 
     for i in reversed(range(verticalLayout.count())):
         widget_to_remove = verticalLayout.itemAt(i).widget()
@@ -740,7 +738,7 @@ def clear_widgets():
             widget_to_remove = layout.itemAt(i).widget()
             if widget_to_remove is not None:
                 widget_to_remove.deleteLater()
-        print("Tüm widget'lar silindi.")
+        print("All widgets deleted.")
 clear_widgets()
 def download_data():
     global last_query

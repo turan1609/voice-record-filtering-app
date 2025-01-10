@@ -942,7 +942,7 @@ class Ui_MainWindow(object):
         self.pushButtonButtonsShowAllData.setText(_translate("MainWindow", "Show All Data"))
         self.pushButtonButtonsDownloadData.setText(_translate("MainWindow", "Download Data"))
         self.pushButtonButtonsClearData.setText(_translate("MainWindow", "Clear Data"))
-        self.labelShowedDataNumber.setText(_translate("MainWindow", "22"))
+
         self.labelShowedData.setText(_translate("MainWindow", "Showed Data:"))
         self.pushButtonRecordVoice.setText(_translate("MainWindow", "Record Voice"))
         self.pushButtonRecordVoice.clicked.connect(self.open_record_page)
